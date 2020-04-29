@@ -1,5 +1,6 @@
 function drilldown(myparams) {
     var query_name = myparams.query_name;
+    var divid = myparams.div_id;
     var agg_cols = myparams.aggregate_columns;
     var sum_cols = myparams.sum_columns;
     var avg_cols = myparams.avg_columns;
@@ -140,7 +141,7 @@ function drilldown(myparams) {
     });
     code = code + "</tbody></table></div>";
 
-    document.getElementById('testdiv').innerHTML = code
+    document.getElementById(divid).innerHTML = code
     $(function() {
         $('.tablesorter-childRow1 td').hide();
         $('.tablesorter-childRow2 td').hide();
