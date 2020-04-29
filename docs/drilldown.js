@@ -1,4 +1,4 @@
-function drilldown(myparams) {
+  function drilldown(myparams) {
     var query_name = myparams.query_name;
     var divid = myparams.div_id;
     var agg_cols = myparams.aggregate_columns;
@@ -6,34 +6,20 @@ function drilldown(myparams) {
     var avg_cols = myparams.avg_columns;
     var rnd = myparams.rounding;
     var height = myparams.table_height;
+    var hidden = myparams.hidden_columns;
     var tier = 0;
+    let sum_avg_cols = myparams.sum_avg_columns;
 
     var data = datasets.filter(function(d) {
         return d.queryName == query_name;
     })[0].content;
 
-
-
-    var headers = Object.keys(data[0]);
-    var code = "<div class=\"drilltable\" style=\"height:" + height + "px;\">";
-    code = code + "<table class=\"tablesorter\"><head><tr>";
-    headers.forEach(function(header) {
-        var prefix = "";
-        if (sum_cols.includes(header)) {
-            prefix = "SUM: ";
-        } else if (avg_cols.includes(header)) {
-            prefix = "AVG: ";
-        }
-        code = code + "<th>" + prefix + header + "</th>"
-    });
-    code = code + "</tr></thead><tbody>";
-
-    var col1_uniques = data.map(a => a[agg_cols[0]]).filter((item, i, ar) => ar.indexOf(item) === i);
-    col1_uniques.forEach(function(col1) {
-        first_rows = data.filter(function(row) {
-            return row[agg_cols[0]] == col1;
-        });
-        code = code + "<tr class=\"tier1\">";
+    function no_nan(x) {
+  if (isNaN(x)) {
+    return '';
+  }
+  return x;
+}
 
         function category_columns(header, column, tier) {
             if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
@@ -47,23 +33,64 @@ function drilldown(myparams) {
 
         function aggregate_columns(header, rows) {
             if (sum_cols.includes(header)) {
-                code = code + "<td class=\"drill_int\">" + parseFloat((rows.map(a => a[header]).filter(function(el) {
+                code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((rows.map(a => a[header]).filter(function(el) {
                     return el != null
                 }).reduce(function(a, b) {
                     return a + b;
-                }, 0)).toFixed(rnd)) + "</td>";
+                }, 0)).toFixed(rnd))) + "</td>";
             } else if (avg_cols.includes(header)) {
-                code = code + "<td class=\"drill_int\">" + parseFloat((rows.map(a => a[header]).filter(function(el) {
+                code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((rows.map(a => a[header]).filter(function(el) {
                     return el != null
                 }).reduce(function(a, b) {
                     return a + b;
                 }, 0) / rows.filter(function(el) {
                     return el[header] != null
-                }).length).toFixed(rnd)) + "</td>";
-            } else {
-                code = code + "<td>Column Type not Defined</td>";
+                }).length).toFixed(rnd))) + "</td>";
+            } else if (Object.keys(sum_avg_cols).includes(header)) {
+              var denominator = sum_avg_cols[header];
+              code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((
+                  (rows.map(a => a[header]).filter(function(el) {
+                    return el != null
+                }).reduce(function(a, b) {
+                    return a + b;
+                }, 0))
+                /
+                (rows.map(a => a[denominator]).filter(function(el) {
+                    return el != null
+                }).reduce(function(a, b) {
+                    return a + b;
+                }, 0)))
+                .toFixed(rnd))) + "</td>";
+            } else  {
+                code = code + "<td>Column Type Not Defined</td>";
             }
         }
+        
+
+
+    var headers = Object.keys(data[0]);
+
+    var code = "<div class=\"drilltable\" style=\"height:" + height + "px;\">";
+    code = code + "<table class=\"tablesorter\"><head><tr>";
+    headers.forEach(function(header) {
+        var prefix = "";
+        if (sum_cols.includes(header)) {
+            prefix = "SUM: ";
+        } else if (avg_cols.includes(header) || Object.keys(sum_avg_cols).includes(header)) {
+            prefix = "AVG: ";
+        }
+        code = code + "<th>" + prefix + header + "</th>"
+    });
+    code = code + "</tr></thead><tbody>";
+
+    var col1_uniques = data.map(a => a[agg_cols[0]]).filter((item, i, ar) => ar.indexOf(item) === i);
+    col1_uniques.forEach(function(col1) {
+        first_rows = data.filter(function(row) {
+            return row[agg_cols[0]] == col1;
+        });
+        code = code + "<tr class=\"tier1\">";
+
+
 
         headers.forEach(function(header) {
             tier = 0;
