@@ -1,4 +1,4 @@
-  function drilldown(myparams) {
+function drilldown(myparams) {
     var query_name = myparams.query_name;
     var divid = myparams.div_id;
     var agg_cols = myparams.aggregate_columns;
@@ -15,61 +15,57 @@
     })[0].content;
 
     function no_nan(x) {
-  if (isNaN(x)) {
-    return '';
-  }
-  return x;
-}
-
-        function category_columns(header, column, tier) {
-            if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
-                code = code + "<td><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
-            } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
-                code = code + "<td>" + column + "</td>";
-            } else {
-                code = code + "<td></td>";
-            }
+        if (isNaN(x)) {
+            return '';
         }
+        return x;
+    }
 
-        function aggregate_columns(header, rows) {
-            if (sum_cols.includes(header)) {
-                code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((rows.map(a => a[header]).filter(function(el) {
-                    return el != null
-                }).reduce(function(a, b) {
-                    return a + b;
-                }, 0)).toFixed(rnd))) + "</td>";
-            } else if (avg_cols.includes(header)) {
-                code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((rows.map(a => a[header]).filter(function(el) {
-                    return el != null
-                }).reduce(function(a, b) {
-                    return a + b;
-                }, 0) / rows.filter(function(el) {
-                    return el[header] != null
-                }).length).toFixed(rnd))) + "</td>";
-            } else if (Object.keys(sum_avg_cols).includes(header)) {
-              var denominator = sum_avg_cols[header];
-              code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((
-                  (rows.map(a => a[header]).filter(function(el) {
-                    return el != null
-                }).reduce(function(a, b) {
-                    return a + b;
-                }, 0))
-                /
-                (rows.map(a => a[denominator]).filter(function(el) {
-                    return el != null
-                }).reduce(function(a, b) {
-                    return a + b;
-                }, 0)))
+    function category_columns(header, column, tier) {
+        if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
+            code = code + "<td><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
+        } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
+            code = code + "<td>" + column + "</td>";
+        } else {
+            code = code + "<td></td>";
+        }
+    }
+
+    function aggregate_columns(header, rows) {
+        if (sum_cols.includes(header)) {
+            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((rows.map(a => a[header]).filter(function(el) {
+                return el != null
+            }).reduce(function(a, b) {
+                return a + b;
+            }, 0)).toFixed(rnd))) + "</td>";
+        } else if (avg_cols.includes(header)) {
+            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((rows.map(a => a[header]).filter(function(el) {
+                return el != null
+            }).reduce(function(a, b) {
+                return a + b;
+            }, 0) / rows.filter(function(el) {
+                return el[header] != null
+            }).length).toFixed(rnd))) + "</td>";
+        } else if (Object.keys(sum_avg_cols).includes(header)) {
+            var denominator = sum_avg_cols[header];
+            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((
+                    (rows.map(a => a[header]).filter(function(el) {
+                        return el != null
+                    }).reduce(function(a, b) {
+                        return a + b;
+                    }, 0)) /
+                    (rows.map(a => a[denominator]).filter(function(el) {
+                        return el != null
+                    }).reduce(function(a, b) {
+                        return a + b;
+                    }, 0)))
                 .toFixed(rnd))) + "</td>";
-            } else  {
-                code = code + "<td>Column Type Not Defined</td>";
-            }
+        } else {
+            code = code + "<td>Column Type Not Defined</td>";
         }
-        
-
+    }
 
     var headers = Object.keys(data[0]);
-
     var code = "<div class=\"drilltable\" style=\"height:" + height + "px;\">";
     code = code + "<table class=\"tablesorter\"><head><tr>";
     headers.forEach(function(header) {
@@ -89,8 +85,6 @@
             return row[agg_cols[0]] == col1;
         });
         code = code + "<tr class=\"tier1\">";
-
-
 
         headers.forEach(function(header) {
             tier = 0;
@@ -155,14 +149,8 @@
                                 code = code + "</tr>";
                             });
                         };
-
-
                     });
                 };
-
-
-
-
             });
         };
     });
