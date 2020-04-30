@@ -2,6 +2,7 @@ function drilldown(myparams) {
     var query_name = myparams.query_name;
     var divid = myparams.div_id;
     var agg_cols = myparams.aggregate_columns;
+    var cal_cols = myparams.calculate_columns;
     var sum_cols = myparams.sum_columns;
     var avg_cols = myparams.avg_columns;
     var rnd = myparams.rounding;
@@ -61,6 +62,7 @@ function drilldown(myparams) {
     }
 
     var headers = Object.keys(data[0]);
+    var headers = [].concat(agg_cols).concat(cal_cols);
     var code = "<div class=\"drilltable\" style=\"height:" + height + "px;\">";
     code = code + "<table class=\"tablesorter\"><head><tr>";
     headers.forEach(function(header) {
@@ -107,7 +109,6 @@ function drilldown(myparams) {
                     }
                 });
                 code = code + "</tr>";
-
 
                 if (agg_cols.includes(headers[2])) {
                     var col3_uniques = second_rows.map(a => a[agg_cols[2]]).filter((item, i, ar) => ar.indexOf(item) === i);
@@ -176,8 +177,8 @@ function drilldown(myparams) {
         $('.tablesorter-childRow1 td').hide();
         $('.tablesorter-childRow2 td').hide();
         $('.tablesorter-childRow3 td').hide();
-      	$('.tablesorter-childRow4 td').hide();
-      	
+        $('.tablesorter-childRow4 td').hide();
+
         $(".tablesorter")
             .tablesorter({
                 cssChildRow: "tablesorter-childRow1"
@@ -186,18 +187,18 @@ function drilldown(myparams) {
             $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow1').find('td').toggle();
             $('.tablesorter-childRow2 td').hide();
             $('.tablesorter-childRow3 td').hide();
-          $('.tablesorter-childRow4 td').hide();
+            $('.tablesorter-childRow4 td').hide();
             return false;
         });
         $('.tablesorter').delegate('.toggle1', 'click', function() {
             $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow2)').find('td').toggle();
             $('.tablesorter-childRow3 td').hide();
-          	$('.tablesorter-childRow4 td').hide();
+            $('.tablesorter-childRow4 td').hide();
             return false;
         });
         $('.tablesorter').delegate('.toggle2', 'click', function() {
             $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow3)').find('td').toggle();
-          	$('.tablesorter-childRow4 td').hide();
+            $('.tablesorter-childRow4 td').hide();
             return false;
         });
         $('.tablesorter').delegate('.toggle3', 'click', function() {
