@@ -1,7 +1,6 @@
 ## Drilldown Tables
 ### Example
-[Sample Report](https://app.mode.com/editor/shopify/reports/c0b17ede36f5)
-![alt text](drilldown_example.gif)
+<img src="https://s3-us-west-2.amazonaws.com/media.forumbee.com/i/f0636882-2437-4a73-a8b5-8f0509d6cf14/h/547.gif">
 
 ### Building the SQL Query
 Your SQL Query will want to consist of two types of columns.
