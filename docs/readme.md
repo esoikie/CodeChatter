@@ -79,3 +79,7 @@ At the bottom of the html editor you will need to add the following script:
   })
 </script>
 ```
+#### - Link the Drilldown Clicker Javascript as the last element in the editor below the above script.
+```
+<script type="text/javascript" src="https://esoikie.github.io/EvansSpace/drilldown_clicker.js"></script>
+```
