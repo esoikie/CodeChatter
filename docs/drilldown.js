@@ -171,6 +171,6 @@ function drilldown(myparams) {
         };
     });
     code = code + "</tbody></table></div>";
+
     document.getElementById(divid).innerHTML = code
 };
-
