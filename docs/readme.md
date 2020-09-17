@@ -78,8 +78,7 @@ At the bottom of the html editor you will need to add the following script:
     table_height: 500,           // The height in pixels you would like the visualization to appear.
   })
 </script>
-```
-#### - Link the Drilldown Clicker Javascript as the last element in the editor below the above script.
-```
-<script type="text/javascript" src="https://esoikie.github.io/EvansSpace/drilldown_clicker.js"></script>
+<script>
+   collapse()
+</script>
 ```
