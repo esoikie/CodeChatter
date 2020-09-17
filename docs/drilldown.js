@@ -169,6 +169,10 @@ function drilldown(myparams) {
                 };
             });
         };
+    });
+    code = code + "</tbody></table></div>";
+
+    document.getElementById(divid).innerHTML = code
         $(function() {
         $('.tablesorter-childRow1 td').hide();
         $('.tablesorter-childRow2 td').hide();
@@ -201,9 +205,5 @@ function drilldown(myparams) {
             return false;
         });
       });
-    });
-    code = code + "</tbody></table></div>";
-
-    document.getElementById(divid).innerHTML = code
 };
 
