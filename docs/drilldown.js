@@ -173,5 +173,9 @@ function drilldown(myparams) {
     code = code + "</tbody></table></div>";
 
     document.getElementById(divid).innerHTML = code
+    $('.tablesorter-childRow1 td').hide();
+    $('.tablesorter-childRow2 td').hide();
+    $('.tablesorter-childRow3 td').hide();
+    $('.tablesorter-childRow4 td').hide();
 };
 
