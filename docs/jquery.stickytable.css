@@ -2,8 +2,6 @@
     max-width: 100%;
     max-height: 80vh;
     overflow: auto;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
     padding: 0 !important;
     transition: width 2s;
 }
@@ -31,7 +29,6 @@
     position: -webkit-sticky;
     position: -ms-sticky;
     position: sticky;
-    outline: 1px solid #ddd;
     z-index: 5;
 }
 .sticky-table table tr.sticky-header th, .sticky-table table tr.sticky-header td {
@@ -43,7 +40,6 @@
 
 .sticky-table table td.sticky-cell, .sticky-table table th.sticky-cell,
 .sticky-table table td.sticky-cell-opposite, .sticky-table table th.sticky-cell-opposite {
-    outline: 1px solid #ddd;
     position: relative;
     position: -webkit-sticky;
     position: -ms-sticky;
