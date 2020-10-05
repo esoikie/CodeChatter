@@ -72,7 +72,7 @@ function drilldown(myparams) {
         } else if (avg_cols.includes(header) || Object.keys(sum_avg_cols).includes(header)) {
             prefix = "AVG: ";
         }
-        code = code + "<th class=\"dc" + tier + "\>" + prefix + header + "</th>"
+        code = code + "<th class=\"dc" + tier + "\">" + prefix + header + "</th>"
     });
     code = code + "</tr></thead><tbody>";
 
