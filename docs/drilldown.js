@@ -40,11 +40,11 @@ function drilldown(myparams) {
 
     function category_columns(header, column, tier) {
         if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
-            code = code + "<td class=\"sticky-cell\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
+            code = code + "<td class=\"col" + headers.indexOf(header) + "\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
         } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
-            code = code + "<td class=\"sticky-cell\">" + column + "</td>";
+            code = code + "<td class=\"col" + headers.indexOf(header) + "\">" + column + "</td>";
         } else {
-            code = code + "<td class=\"sticky-cell\"></td>";
+            code = code + "<td class=\"col" + headers.indexOf(header) + "\"></td>";
         }
     }
 
@@ -63,20 +63,16 @@ function drilldown(myparams) {
 
     var headers = Object.keys(data[0]);
     var headers = [].concat(agg_cols).concat(cal_cols);
-    var code = "<div class=\"drilltable sticky-table sticky-ltr-cells\" style=\"height:" + height + "px;\">";
-    code = code + "<table class=\"tablesorter\"><head><tr class=\"sticky-header\">";
+    var code = "<div class=\"ddwrapper\"><div class=\"drilltable\" style=\"height:" + height + "px;\">";
+    code = code + "<table class=\"tablesorter\"><head><tr>";
     headers.forEach(function(header) {
         var prefix = "";
-        var sticky = "";
-        if (agg_cols.includes(header)) {
-            sticky = " class =\"sticky-cell\"";
-        }
         if (sum_cols.includes(header)) {
             prefix = "SUM: ";
         } else if (avg_cols.includes(header) || Object.keys(sum_avg_cols).includes(header)) {
             prefix = "AVG: ";
         }
-        code = code + "<th" + sticky + ">" + prefix + header + "</th>"
+        code = code + "<th class=\"col" + headers.indexOf(header) + "\">" + prefix + header + "</th>"
     });
     code = code + "</tr></thead><tbody>";
 
@@ -174,7 +170,7 @@ function drilldown(myparams) {
             });
         };
     });
-    code = code + "</tbody></table></div>";
+    code = code + "</tbody></table></div></div>";
 
     document.getElementById(divid).innerHTML = code
 };
