@@ -40,19 +40,15 @@ function drilldown(myparams) {
 
     function category_columns(header, column, tier) {
         if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
-            code = code + "<td class=\"stick-cell\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
+            code = code + "<td><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
         } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
-            code = code + "<td class=\"stick-cell\">" + column + "</td>";
+            code = code + "<td>" + column + "</td>";
         } else {
-            code = code + "<td class=\"stick-cell\"></td>";
+            code = code + "<td></td>";
         }
     }
 
     function aggregate_columns(header, rows) {
-        var sticky = "";
-        if (agg_Cols.includes(header)) {
-            sticky = " sticky-cell"
-        }
         if (sum_cols.includes(header)) {
             code = code + "<td class=\"drill_int\">" + no_nan(parseFloat(sum(rows, header))) + "</td>";
         } else if (avg_cols.includes(header)) {
@@ -68,7 +64,7 @@ function drilldown(myparams) {
     var headers = Object.keys(data[0]);
     var headers = [].concat(agg_cols).concat(cal_cols);
     var code = "<div class=\"drilltable\" style=\"height:" + height + "px;\">";
-    code = code + "<table class=\"tablesorter sticky-table\"><head><tr>";
+    code = code + "<table class=\"tablesorter\"><head><tr>";
     headers.forEach(function(header) {
         var prefix = "";
         if (sum_cols.includes(header)) {
