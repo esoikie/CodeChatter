@@ -69,14 +69,14 @@ function drilldown(myparams) {
         var prefix = "";
         var sticky = "";
         if (agg_cols.includes(header)) {
-            sticky = "sticky-cell";
+            sticky = " class =\"sticky-cell\"";
         }
         if (sum_cols.includes(header)) {
             prefix = "SUM: ";
         } else if (avg_cols.includes(header) || Object.keys(sum_avg_cols).includes(header)) {
             prefix = "AVG: ";
         }
-        code = code + "<th class=\"" + sticky + "\">" + prefix + header + "</th>"
+        code = code + "<th" + sticky + ">" + prefix + header + "</th>"
     });
     code = code + "</tr></thead><tbody>";
 
