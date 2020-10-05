@@ -49,13 +49,17 @@ function drilldown(myparams) {
     }
 
     function aggregate_columns(header, rows) {
+        var sticky = "";
+        if (agg_cols.includes(header)) {
+            sticky = " sticky-cell";
+        }
         if (sum_cols.includes(header)) {
-            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat(sum(rows, header))) + "</td>";
+            code = code + "<td class=\"drill_int" + sticky + "\">" + no_nan(parseFloat(sum(rows, header))) + "</td>";
         } else if (avg_cols.includes(header)) {
-            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((sum(rows, header) / count_values(rows, header)).toFixed(rnd))) + "</td>";
+            code = code + "<td class=\"drill_int" + sticky + "\">" + no_nan(parseFloat((sum(rows, header) / count_values(rows, header)).toFixed(rnd))) + "</td>";
         } else if (Object.keys(sum_avg_cols).includes(header)) {
             var denominator = sum_avg_cols[header];
-            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((sum(rows, header) / sum(rows, denominator)).toFixed(rnd))) + "</td>";
+            code = code + "<td class=\"drill_int" + sticky + "\">" + no_nan(parseFloat((sum(rows, header) / sum(rows, denominator)).toFixed(rnd))) + "</td>";
         } else {
             code = code + "<td>Column Type Not Defined</td>";
         }
@@ -63,13 +67,13 @@ function drilldown(myparams) {
 
     var headers = Object.keys(data[0]);
     var headers = [].concat(agg_cols).concat(cal_cols);
-    var code = "<div class=\"drilltable sticky-table\" style=\"height:" + height + "px;\">";
+    var code = "<div class=\"drilltable sticky-table sticky-headers sticky-ltr-cells\" style=\"height:" + height + "px;\">";
     code = code + "<table class=\"tablesorter\"><head><tr>";
     headers.forEach(function(header) {
         var prefix = "";
         var sticky = "";
         if (agg_cols.includes(header)) {
-            sticky = " sticky-header";
+            sticky = " sticky-cell";
         }
         if (sum_cols.includes(header)) {
             prefix = "SUM: ";
