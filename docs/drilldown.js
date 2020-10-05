@@ -40,22 +40,26 @@ function drilldown(myparams) {
 
     function category_columns(header, column, tier) {
         if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
-            code = code + "<td class=\"sticky-cell\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
+            code = code + "<td class=\"stick-cell\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
         } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
-            code = code + "<td class=\"sticky-cell\">" + column + "</td>";
+            code = code + "<td class=\"stick-cell\">" + column + "</td>";
         } else {
-            code = code + "<td class=\"sticky-cell\"></td>";
+            code = code + "<td class=\"stick-cell\"></td>";
         }
     }
 
     function aggregate_columns(header, rows) {
+        var sticky = "";
+        if (agg_Cols.includes(header)) {
+            sticky = " sticky-cell"
+        }
         if (sum_cols.includes(header)) {
-            code = code + "<td class=\"drill_int"\">" + no_nan(parseFloat(sum(rows, header))) + "</td>";
+            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat(sum(rows, header))) + "</td>";
         } else if (avg_cols.includes(header)) {
-            code = code + "<td class=\"drill_int"\">" + no_nan(parseFloat((sum(rows, header) / count_values(rows, header)).toFixed(rnd))) + "</td>";
+            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((sum(rows, header) / count_values(rows, header)).toFixed(rnd))) + "</td>";
         } else if (Object.keys(sum_avg_cols).includes(header)) {
             var denominator = sum_avg_cols[header];
-            code = code + "<td class=\"drill_int"\">" + no_nan(parseFloat((sum(rows, header) / sum(rows, denominator)).toFixed(rnd))) + "</td>";
+            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((sum(rows, header) / sum(rows, denominator)).toFixed(rnd))) + "</td>";
         } else {
             code = code + "<td>Column Type Not Defined</td>";
         }
@@ -63,20 +67,16 @@ function drilldown(myparams) {
 
     var headers = Object.keys(data[0]);
     var headers = [].concat(agg_cols).concat(cal_cols);
-    var code = "<div class=\"drilltable sticky-table sticky-headers sticky-ltr-cells\" style=\"height:" + height + "px;\">";
-    code = code + "<table class=\"tablesorter\"><head><tr>";
+    var code = "<div class=\"drilltable\" style=\"height:" + height + "px;\">";
+    code = code + "<table class=\"tablesorter sticky-table\"><head><tr>";
     headers.forEach(function(header) {
         var prefix = "";
-        var sticky = "";
-        if (agg_cols.includes(header)) {
-            sticky = " sticky-cell";
-        }
         if (sum_cols.includes(header)) {
             prefix = "SUM: ";
         } else if (avg_cols.includes(header) || Object.keys(sum_avg_cols).includes(header)) {
             prefix = "AVG: ";
         }
-        code = code + "<th class=\"sticky-cell\">" + prefix + header + "</th>"
+        code = code + "<th>" + prefix + header + "</th>"
     });
     code = code + "</tr></thead><tbody>";
 
