@@ -29,16 +29,16 @@
   }
 
   .tablesorter th {
-    position: -webkit-sticky;
-    position: sticky;
+    position: -webkit-sticky !important;
+    position: sticky !important;
     top: 0;
     z-index: 2;
-    background: #b1b2ba;
+    background: #b1b2ba !important;
     font-weight: 300;
     padding: 0px 30px 0px 10px;
-    -webkit-box-shadow: 0px 3px 5px grey;
-    -moz-box-shadow: 0px 3px 5px grey;
-    box-shadow: 0px 3px 5px grey;
+    -webkit-box-shadow: 0px 3px 5px grey !important;
+    -moz-box-shadow: 0px 3px 5px grey !important;
+    box-shadow: 0px 3px 5px grey !important;
   }
 
   .drilltable {
