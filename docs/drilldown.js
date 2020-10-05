@@ -40,11 +40,11 @@ function drilldown(myparams) {
 
     function category_columns(header, column, tier) {
         if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
-            code = code + "<td class=\"col" + headers.indexOf(header) + "\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
+            code = code + "<td><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
         } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
-            code = code + "<td class=\"col" + headers.indexOf(header) + "\">" + column + "</td>";
+            code = code + "<td>" + column + "</td>";
         } else {
-            code = code + "<td class=\"col" + headers.indexOf(header) + "\"></td>";
+            code = code + "<td></td>";
         }
     }
 
@@ -63,8 +63,8 @@ function drilldown(myparams) {
 
     var headers = Object.keys(data[0]);
     var headers = [].concat(agg_cols).concat(cal_cols);
-    var code = "<div class=\"ddwrapper\"><div class=\"drilltable\" style=\"height:" + height + "px;\">";
-    code = code + "<table class=\"tablesorter\"><head><div class=\"headwrapper\"><tr>";
+    var code = "<div class=\"drilltable\" style=\"height:" + height + "px;\">";
+    code = code + "<table class=\"tablesorter\"><head><tr>";
     headers.forEach(function(header) {
         var prefix = "";
         if (sum_cols.includes(header)) {
@@ -72,9 +72,9 @@ function drilldown(myparams) {
         } else if (avg_cols.includes(header) || Object.keys(sum_avg_cols).includes(header)) {
             prefix = "AVG: ";
         }
-        code = code + "<th class=\"col" + headers.indexOf(header) + "\">" + prefix + header + "</th>"
+        code = code + "<th>" + prefix + header + "</th>"
     });
-    code = code + "</tr></div></thead><tbody>";
+    code = code + "</tr></thead><tbody>";
 
     var col1_uniques = data.map(a => a[agg_cols[0]]).filter((item, i, ar) => ar.indexOf(item) === i);
     col1_uniques.forEach(function(col1) {
@@ -170,7 +170,7 @@ function drilldown(myparams) {
             });
         };
     });
-    code = code + "</tbody></table></div></div>";
+    code = code + "</tbody></table></div>";
 
     document.getElementById(divid).innerHTML = code
 };
