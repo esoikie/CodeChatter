@@ -44,7 +44,7 @@ function drilldown(myparams) {
         } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
             code = code + "<td class=\"sticky-cell\">" + column + "</td>";
         } else {
-            code = code + "<td></td>";
+            code = code + "<td class=\"sticky-cell\"></td>";
         }
     }
 
