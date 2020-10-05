@@ -40,26 +40,22 @@ function drilldown(myparams) {
 
     function category_columns(header, column, tier) {
         if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
-            code = code + "<td class=\"dc" + tier + "\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
+            code = code + "<td class=\"sticky-cell\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
         } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
-            code = code + "<td class=\"dc" + tier + "\">" + column + "</td>";
+            code = code + "<td class=\"sticky-cell\">" + column + "</td>";
         } else {
-            code = code + "<td class=\"dc" + tier + "\"></td>";
+            code = code + "<td></td>";
         }
     }
 
     function aggregate_columns(header, rows) {
-        var sticky = "";
-        if (agg_cols.includes(header)) {
-            sticky = " sticky-cell";
-        }
         if (sum_cols.includes(header)) {
-            code = code + "<td class=\"drill_int" + sticky + "\">" + no_nan(parseFloat(sum(rows, header))) + "</td>";
+            code = code + "<td class=\"drill_int"\">" + no_nan(parseFloat(sum(rows, header))) + "</td>";
         } else if (avg_cols.includes(header)) {
-            code = code + "<td class=\"drill_int" + sticky + "\">" + no_nan(parseFloat((sum(rows, header) / count_values(rows, header)).toFixed(rnd))) + "</td>";
+            code = code + "<td class=\"drill_int"\">" + no_nan(parseFloat((sum(rows, header) / count_values(rows, header)).toFixed(rnd))) + "</td>";
         } else if (Object.keys(sum_avg_cols).includes(header)) {
             var denominator = sum_avg_cols[header];
-            code = code + "<td class=\"drill_int" + sticky + "\">" + no_nan(parseFloat((sum(rows, header) / sum(rows, denominator)).toFixed(rnd))) + "</td>";
+            code = code + "<td class=\"drill_int"\">" + no_nan(parseFloat((sum(rows, header) / sum(rows, denominator)).toFixed(rnd))) + "</td>";
         } else {
             code = code + "<td>Column Type Not Defined</td>";
         }
