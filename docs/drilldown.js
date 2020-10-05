@@ -40,7 +40,7 @@ function drilldown(myparams) {
 
     function category_columns(header, column, tier) {
         if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
-            code = code + "<td><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
+            code = code + "<td class=\"dc" + tier + "\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
         } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
             code = code + "<td>" + column + "</td>";
         } else {
