@@ -64,7 +64,7 @@ function drilldown(myparams) {
     var headers = Object.keys(data[0]);
     var headers = [].concat(agg_cols).concat(cal_cols);
     var code = "<div class=\"ddwrapper\"><div class=\"drilltable\" style=\"height:" + height + "px;\">";
-    code = code + "<table class=\"tablesorter\"><head><div class="headwrapper"><tr>";
+    code = code + "<table class=\"tablesorter\"><head><div class=\"headwrapper\"><tr>";
     headers.forEach(function(header) {
         var prefix = "";
         if (sum_cols.includes(header)) {
