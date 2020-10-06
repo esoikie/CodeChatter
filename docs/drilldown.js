@@ -50,7 +50,7 @@ function drilldown(myparams) {
 
     function aggregate_columns(header, rows) {
         if (sum_cols.includes(header)) {
-            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat(sum(rows, header))) + "</td>";
+            code = code + "<td class=\"drill_int\">" + no_nan(parseFloat(sum(rows, header).toFixed(rnd))) + "</td>";
         } else if (avg_cols.includes(header)) {
             code = code + "<td class=\"drill_int\">" + no_nan(parseFloat((sum(rows, header) / count_values(rows, header)).toFixed(rnd))) + "</td>";
         } else if (Object.keys(sum_avg_cols).includes(header)) {
