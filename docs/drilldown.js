@@ -64,7 +64,6 @@ function drilldown(myparams) {
     var headers = Object.keys(data[0]);
     var headers = [].concat(agg_cols).concat(cal_cols);
     var code = "<div class=\"drilltable\" style=\"height:" + height + "px;\">";
-    int colcount = 1;
     code = code + "<table class=\"tablesorter\"><head><tr>";
     headers.forEach(function(header) {
         var prefix = "";
@@ -73,8 +72,7 @@ function drilldown(myparams) {
         } else if (avg_cols.includes(header) || Object.keys(sum_avg_cols).includes(header)) {
             prefix = "AVG: ";
         }
-        code = code + "<th class=\"dc" + colcount + "\">" + prefix + header + "</th>"
-        colcount = colcount+1;
+        code = code + "<th>" + prefix + header + "</th>"
     });
     code = code + "</tr></thead><tbody>";
 
