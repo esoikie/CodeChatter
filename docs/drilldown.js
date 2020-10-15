@@ -214,7 +214,9 @@ function toggleRows(classid) {
       x = document.getElementsByClassName(classid)[0].getElementsByTagName("td")[0];
         if (x.style.display === "none") {
           $('.' + classid + ' td').show();
+          document.getElementById('expander' + classid).style.background = "#47C1BF";
         } else {
           $('.' + classid + ' td').hide();
+          document.getElementById('expander' + classid).style.background = "#C4CDD5";
         };
   };
