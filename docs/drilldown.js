@@ -40,11 +40,11 @@ function drilldown(myparams) {
 
     function category_columns(header, column, tier) {
         if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
-            code = code + "<td class=\"col" + headers.indexOf(header) + "\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
+            code = code + "<td class=\"col" + (headers.indexOf(header)+1) + "\"><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
         } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
-            code = code + "<td class=\"col" + headers.indexOf(header) + "\">" + column + "</td>";
+            code = code + "<td class=\"col" + (headers.indexOf(header)+1) + "\">" + column + "</td>";
         } else {
-            code = code + "<td class=\"col" + headers.indexOf(header) + "\"></td>";
+            code = code + "<td class=\"col" + (headers.indexOf(header)+1) + "\"></td>";
         }
     }
 
@@ -72,7 +72,7 @@ function drilldown(myparams) {
         } else if (avg_cols.includes(header) || Object.keys(sum_avg_cols).includes(header)) {
             prefix = "AVG: ";
         }
-        code = code + "<th class=\"col" + headers.indexOf(header) + "\">" + prefix + header + "</th>"
+        code = code + "<th class=\"col" + (headers.indexOf(header)+1) + "\">" + prefix + header + "</th>"
     });
     code = code + "</tr></thead><tbody>";
 
