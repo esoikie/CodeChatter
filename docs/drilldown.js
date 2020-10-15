@@ -40,11 +40,11 @@ function drilldown(myparams) {
 
     function category_columns(header, column, tier) {
         if (agg_cols[tier] == header && agg_cols.indexOf(header) < agg_cols.length - 1) {
-            code = code + "<td><a href=\"#\" class=\"toggle" + tier + "\>" + column + "</a></td>";
+            code = code + "<td><a href=\"#\" class=\"toggle" + tier + "\">" + column + "</a></td>";
         } else if (agg_cols[tier] == header && agg_cols.indexOf(header) == agg_cols.length - 1) {
             code = code + "<td>" + column + "</td>";
         } else {
-            code = code + "<td\></td>";
+            code = code + "<td></td>";
         }
     }
 
@@ -72,7 +72,7 @@ function drilldown(myparams) {
         } else if (avg_cols.includes(header) || Object.keys(sum_avg_cols).includes(header)) {
             prefix = "AVG: ";
         }
-        code = code + "<th>" + prefix + header + "</th>"
+        code = code + "<th class=\"col" + headers.indexOf(header) + \">" + prefix + header + "</th>"
     });
     code = code + "</tr></thead><tbody>";
 
