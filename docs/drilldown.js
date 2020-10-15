@@ -209,3 +209,12 @@ function collapse() {
     });
   });
 };
+
+function toggleRows(classid) {
+      x = document.getElementsByClassName(classid)[0].getElementsByTagName("td")[0];
+        if (x.style.display === "none") {
+          $('.' + classid + ' td').show();
+        } else {
+          $('.' + classid + ' td').hide();
+        };
+  };
