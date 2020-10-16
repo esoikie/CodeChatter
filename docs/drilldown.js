@@ -175,7 +175,7 @@ function drilldown(myparams) {
     document.getElementById(divid).innerHTML = code
 };
 
-function collapse() {
+async function collapse() {
     $(function() {
     $('.tablesorter-childRow1 td').hide();
     $('.tablesorter-childRow2 td').hide();
