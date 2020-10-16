@@ -186,7 +186,11 @@ function collapse() {
             cssChildRow: "tablesorter-childRow1"
         })
     $('.tablesorter').delegate('.toggle0', 'click', function() {
-        $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow1').find('td').toggle();
+ //       $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow1').find('td').toggle();
+        cells = $(this).getElementsByTagName("td");
+        for(var c = 0; c < cells.length; c++){
+          cells[c].style.display = document.getElementsByClassName('col' + (c+1))[0].style.display;
+        };
         $('.tablesorter-childRow2 td').hide();
         $('.tablesorter-childRow3 td').hide();
         $('.tablesorter-childRow4 td').hide();
