@@ -186,10 +186,15 @@ function collapse() {
             cssChildRow: "tablesorter-childRow1"
         })
     $('.tablesorter').delegate('.toggle0', 'click', function() {
- //       $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow1').find('td').toggle();
-        cells = $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow1').find('td').toArray();
-        for(var c = 0; c < cells.length; c++){
-          cells[c].style.display = document.getElementsByClassName('col' + (c+1))[0].style.display;
+        $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow1').find('td').toggle();
+        rows = document.getElementsByClassName('tier1');
+        for(var r = 0; r < rows.length; r++){
+          cells = rows[r].getElementsByTagName("td");
+          for(var c = 0; c < cells.length; c++){
+            if(document.getElementsByClassName('col' + (c+1))[0].style.display == "none") {
+                cells[c].style.display = "none";
+            };
+          };
         };
         $('.tablesorter-childRow2 td').hide();
         $('.tablesorter-childRow3 td').hide();
