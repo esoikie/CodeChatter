@@ -187,7 +187,7 @@ function collapse() {
         })
     $('.tablesorter').delegate('.toggle0', 'click', function() {
  //       $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow1').find('td').toggle();
-        cells = $(this).closest('tr');
+        cells = $(this).closest('tr').get();
         cells = cells.getElementsByTagName("td");
         for(var c = 0; c < cells.length; c++){
           cells[c].style.display = document.getElementsByClassName('col' + (c+1))[0].style.display;
